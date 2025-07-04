@@ -10,27 +10,35 @@ body {
     font-family: 'Cairo', Arial, sans-serif;
     background: linear-gradient(135deg, #ff6b35 0%, #ffa500 50%, #ff8c42 100%);
     min-height: 100vh;
+    height: 100%; /* Ensure body takes full height */
     direction: rtl;
-    overflow-x: hidden;
+    overflow: hidden; /* Prevent all scrollbars */
+    display: flex;
+    flex-direction: column;
 }
 
 .container {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 15px;
+    width: 100%; /* Use full width */
+    flex-grow: 1; /* Allow container to fill available vertical space */
+    padding: 1vw; /* Relative padding */
+    display: flex; /* Added to allow child (.game-board) to flex */
+    flex-direction: column; /* Added to allow child (.game-board) to flex */
+    overflow: hidden; /* Prevent internal scrolling if content is too large */
+    margin: 0; /* Reset margin */
 }
 
 .header {
     background: linear-gradient(135deg, #e74c3c, #c0392b);
     color: white;
-    padding: 20px;
-    border-radius: 15px 15px 0 0;
+    padding: 2vh 1vw; /* Relative padding */
+    border-radius: 1.5vmin 1.5vmin 0 0; /* Relative radius */
     text-align: center;
-    font-size: 28px;
+    font-size: clamp(2.5vh, 4vw, 4vh); /* Responsive font size */
     font-weight: 900;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 0.5vh 2vh rgba(0,0,0,0.3); /* Relative shadow */
     position: relative;
     overflow: hidden;
+    flex-shrink: 0; /* Prevent header from shrinking too much if content below grows */
 }
 
 .header::before {
@@ -52,12 +60,13 @@ body {
 .logo {
     background: white;
     color: #e74c3c;
-    padding: 12px 25px;
-    border-radius: 20px;
+    padding: 1vh 2vw; /* Relative padding */
+    border-radius: 2vmin; /* Relative radius */
     display: inline-block;
-    margin-left: 15px;
+    margin-left: 1vw; /* Relative margin */
     font-weight: 900;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    font-size: clamp(2vh, 3vw, 3.5vh); /* Responsive font size */
+    box-shadow: 0 0.5vh 1.5vh rgba(0,0,0,0.2); /* Relative shadow */
 }
 
 /* Team Names Screen */
@@ -244,40 +253,49 @@ body {
 
 /* Game Board */
 .game-board {
-    display: none;
+    display: none; /* Initially hidden, shown by JS */
     background: white;
-    border-radius: 0 0 15px 15px;
-    padding: 20px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    border-radius: 0 0 1.5vh 1.5vh; /* Relative radius */
+    /* padding: 20px; Replaced by relative padding below */
+    box-shadow: 0 0.8vh 2.5vh rgba(0,0,0,0.2); /* Relative shadow */
+    flex-grow: 1; /* Key for filling container space */
+    display: flex; /* Use flexbox for internal layout */
+    flex-direction: column; /* Stack board and teams vertically */
+    overflow: hidden; /* Prevent its own scrollbars */
+    padding: 1vw; /* Relative padding */
 }
 
 .board-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 25px;
-    margin-bottom: 30px;
-    max-width: 1400px;
-    margin-left: auto;
-    margin-right: auto;
+    grid-template-columns: repeat(3, 1fr); /* 3 categories wide */
+    grid-template-rows: repeat(2, 1fr);    /* 2 categories tall */
+    gap: 1vmin;
+    flex-grow: 1; /* Takes up available space in .game-board */
+    overflow: hidden;
+    width: 100%;
+    margin-bottom: 1vh; /* Space before teams-section */
 }
 
 .category-section {
     background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-    border-radius: 15px;
-    padding: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-radius: 1vmin;
+    padding: 1vmin;
+    box-shadow: 0 0.4vmin 1.5vmin rgba(0,0,0,0.1);
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    gap: 10px;
-    min-height: 350px;
+    grid-template-columns: 1fr 1.5fr 1fr; /* Points | Emoji | Points */
+    gap: 0.5vmin;
+    height: 100%; /* Fill the grid cell */
+    min-height: 0; /* Grid fix for overflow */
+    overflow: hidden;
 }
 
 .points-column-left,
 .points-column-right {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 0.5vmin;
+    justify-content: space-around; /* Distribute point cards */
+    overflow: hidden; /* Hide overflow if cards too big */
 }
 
 .category-center {
@@ -286,34 +304,41 @@ body {
     justify-content: space-between;
     align-items: center;
     position: relative;
-    padding: 10px 0;
+    padding: 0.5vmin 0;
+    overflow: hidden;
 }
 
 .category-header {
     background: linear-gradient(135deg, #ff6b35, #ff8c42);
     color: white;
-    padding: 12px 8px;
+    padding: 0.8vmin; /* Adjusted padding */
     text-align: center;
-    border-radius: 10px;
+    border-radius: 0.8vmin;
     font-weight: 700;
-    font-size: 14px;
-    box-shadow: 0 4px 15px rgba(255,107,53,0.4);
+    font-size: clamp(1.2vmin, 2vh, 2.2vmin); /* Responsive font size */
+    box-shadow: 0 0.4vmin 1.5vmin rgba(255,107,53,0.4);
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 0.5vmin;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 0; /* Prevent shrinking */
 }
 
 .category-emoji {
     width: 100%;
-    height: 240px;
-    border-radius: 12px;
+    flex-grow: 1; /* Takes available space in category-center */
+    max-height: 25vh; /* Constraint to prevent oversized emoji */
+    min-height: 5vh; /* Ensure it's visible */
+    border-radius: 1vmin;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 0.4vmin 1.5vmin rgba(0,0,0,0.2);
     display: flex;
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, #ffffff, #f8f9fa);
-    font-size: 80px;
+    font-size: clamp(5vmin, 12vh, 15vmin); /* Responsive emoji size */
     animation: categoryFloat 3s ease-in-out infinite;
 }
 
@@ -338,7 +363,7 @@ body {
 /* Animations */
 @keyframes categoryFloat {
     0%, 100% { transform: translateY(0px) scale(1); }
-    50% { transform: translateY(-10px) scale(1.05); }
+    50% { transform: translateY(-1vmin) scale(1.05); }
 }
 @keyframes pulse {
     0%, 100% { transform: scale(1); }
@@ -365,13 +390,13 @@ body {
     text-align: center;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 20px;
+    font-size: clamp(1.5vmin, 2.5vh, 3vmin); /* Responsive font size */
     font-weight: 900;
     color: #e74c3c;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
-    height: 75px;
+    height: 100%; /* Fill space in points column */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -418,20 +443,24 @@ body {
 }
 
 .team-name {
-    font-size: 20px;
-    margin-bottom: 15px;
+    font-size: clamp(1.8vmin, 2.2vh, 2.5vmin); /* Responsive font size */
+    margin-bottom: 1vmin; /* Relative margin */
     font-weight: 600;
+    white-space: nowrap; /* Prevent wrapping */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Add ellipsis for long names */
 }
 
 .team-score {
     background: linear-gradient(135deg, #e74c3c, #c0392b);
     color: white;
-    padding: 15px 30px;
-    border-radius: 25px;
-    font-size: 24px;
+    padding: 1vmin 2vmin; /* Relative padding */
+    border-radius: 2.5vmin; /* Relative radius */
+    font-size: clamp(2.2vmin, 3vh, 3.8vmin); /* Responsive font size */
     font-weight: 900;
-    box-shadow: 0 4px 15px rgba(231,76,60,0.4);
+    box-shadow: 0 0.4vmin 1.5vmin rgba(231,76,60,0.4); /* Relative shadow */
     transition: all 0.3s ease;
+    display: inline-block; /* Ensure padding is respected */
 }
 
 .team.active .team-score {
@@ -463,6 +492,9 @@ body {
     background: rgba(0,0,0,0.9);
     z-index: 1000;
     animation: fadeIn 0.3s ease;
+    display: flex; /* Use flex to center content */
+    align-items: center; /* Use flex to center content */
+    justify-content: center; /* Use flex to center content */
 }
 
 @keyframes fadeIn {
@@ -471,37 +503,41 @@ body {
 }
 
 .question-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    /* position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); Removed for flex centering */
     background: linear-gradient(135deg, #ffffff, #f8f9fa);
-    padding: 40px;
-    border-radius: 20px;
+    padding: 3vh 3vw; /* Relative padding */
+    border-radius: 2vmin; /* Relative radius */
     text-align: center;
-    max-width: 700px;
-    width: 90%;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    max-width: 70vw; /* Relative max-width */
+    width: auto; /* Adjust based on content, respecting max-width */
+    max-height: 85vh; /* Prevent modal from being too tall */
+    box-shadow: 0 2vmin 6vmin rgba(0,0,0,0.3); /* Relative shadow */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribute space for text and buttons */
+    overflow-y: auto; /* Allow content to scroll if it exceeds max-height */
 }
 
 .question-text {
-    font-size: 28px;
-    margin-bottom: 30px;
+    font-size: clamp(2vmin, 3.5vh, 4vmin); /* Responsive font size */
+    margin-bottom: 2vh; /* Relative margin */
     color: #2c3e50;
     font-weight: 600;
     line-height: 1.4;
+    overflow-y: auto; /* Scroll if text too long for modal height */
+    max-height: 30vh; /* Limit height of question text within modal */
 }
 
 .question-points {
     background: linear-gradient(135deg, #e74c3c, #c0392b);
     color: white;
-    padding: 15px 30px;
-    border-radius: 20px;
+    padding: 1vh 2vw; /* Relative padding */
+    border-radius: 2vmin; /* Relative radius */
     display: inline-block;
-    margin-bottom: 25px;
-    font-size: 20px;
+    margin-bottom: 2vh; /* Relative margin */
+    font-size: clamp(1.8vmin, 2.5vh, 3vmin); /* Responsive font size */
     font-weight: 700;
-    box-shadow: 0 4px 15px rgba(231,76,60,0.4);
+    box-shadow: 0 0.4vmin 1.5vmin rgba(231,76,60,0.4); /* Relative shadow */
 }
 
 .answer-section {
@@ -514,10 +550,12 @@ body {
 }
 
 .answer-text {
-    font-size: 20px;
+    font-size: clamp(1.8vmin, 2.8vh, 3.5vmin); /* Responsive font size */
     font-weight: 600;
     color: #2c3e50;
-    margin-bottom: 20px;
+    margin-bottom: 1.5vh; /* Relative margin */
+    overflow-y: auto; /* Scroll if text too long */
+    max-height: 15vh; /* Limit height of answer text */
 }
 
 .team-selection {
@@ -539,13 +577,14 @@ body {
 }
 
 .modal-btn {
-    padding: 15px 25px;
+    padding: 1.2vh 2vw; /* Relative padding */
     border: none;
-    border-radius: 12px;
-    font-size: 16px;
+    border-radius: 1vmin; /* Relative radius */
+    font-size: clamp(1.5vmin, 2vh, 2.5vmin); /* Responsive font size */
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    margin: 0.5vmin; /* Add small margin for wrapping */
 }
 
 .show-answer-btn { background: linear-gradient(135deg, #3498db, #2980b9); color: white; box-shadow: 0 4px 15px rgba(52,152,219,0.4); }
