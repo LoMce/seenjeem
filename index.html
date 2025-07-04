@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سين جيم - لعبة المعرفة المطورة</title>
+    <!-- Link to your external CSS file -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="current-team-indicator" id="currentTeamIndicator" style="display: none;">
+        دور الفريق الأول
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <span class="logo">سين جيم</span>
+            لعبة المعرفة والثقافة العربية المطورة
+        </div>
+
+        <!-- Team Names Screen -->
+        <div class="team-names-screen" id="teamNamesScreen">
+            <h2>أدخل أسماء الفرق</h2>
+            <div class="team-inputs">
+                <div class="team-input-group">
+                    <label for="team1Name">اسم الفريق الأول</label>
+                    <input type="text" id="team1Name" placeholder="أدخل اسم الفريق الأول" maxlength="20">
+                </div>
+                <div class="team-input-group">
+                    <label for="team2Name">اسم الفريق الثاني</label>
+                    <input type="text" id="team2Name" placeholder="أدخل اسم الفريق الثاني" maxlength="20">
+                </div>
+            </div>
+            <button class="continue-btn" id="continueToCategories" disabled>المتابعة لاختيار الفئات</button>
+        </div>
+
+        <!-- Category Selection Screen -->
+        <div class="category-selection" id="categorySelection">
+            <h2>اختر 6 فئات للعب</h2>
+            <div class="categories-grid" id="categoriesGrid">
+                <!-- Categories will be populated by JavaScript -->
+            </div>
+            <button class="start-game-btn" id="startGameBtn" disabled>ابدأ اللعبة</button>
+        </div>
+
+        <!-- Game Board -->
+        <div class="game-board" id="gameBoard">
+            <div class="board-container" id="boardContainer">
+                <!-- Game board will be generated here -->
+            </div>
+            
+            <div class="teams-section">
+                <div class="team active" id="team1">
+                    <div class="team-name" id="team1DisplayName">الفريق الأول</div>
+                    <div class="team-score" id="team1Score">0</div>
+                </div>
+                
+                <div class="team" id="team2">
+                    <div class="team-name" id="team2DisplayName">الفريق الثاني</div>
+                    <div class="team-score" id="team2Score">0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-modal" id="questionModal">
+        <div class="question-content">
+            <div class="question-points" id="questionPoints"></div>
+            <div class="question-text" id="questionText"></div>
+            
+            <div class="modal-buttons" id="initialButtons">
+                <button class="modal-btn show-answer-btn" id="showAnswerBtn">عرض الإجابة</button>
+                <button class="modal-btn close-btn" id="closeBtn">إغلاق</button>
+            </div>
+            
+            <div class="answer-section" id="answerSection">
+                <div class="answer-text" id="answerText"></div>
+                <div class="team-selection">
+                    <h3>من أجاب على السؤال؟</h3>
+                    <div class="modal-buttons">
+                        <button class="modal-btn team1-btn" id="team1AnswerBtn">الفريق الأول</button>
+                        <button class="modal-btn team2-btn" id="team2AnswerBtn">الفريق الثاني</button>
+                        <button class="modal-btn no-answer-btn" id="noAnswerBtn">لا أحد أجاب</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 
+      Link to your JavaScript files.
+      data.js must be loaded before main.js because main.js depends on it.
+      'defer' ensures scripts run after the HTML is parsed.
+    -->
+    <script src="js/data.js" defer></script>
+    <script src="js/main.js" defer></script>
+</body>
+</html>
