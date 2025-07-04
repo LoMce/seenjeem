@@ -270,7 +270,7 @@ body {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
     gap: 10px;
-    min-height: 350px;
+    /* min-height: 350px; */ /* Removed to allow shrinking */
 }
 
 .points-column-left,
@@ -292,19 +292,24 @@ body {
 .category-header {
     background: linear-gradient(135deg, #ff6b35, #ff8c42);
     color: white;
-    padding: 12px 8px;
+    padding: clamp(6px, 1vmin, 12px) clamp(4px, 0.8vmin, 8px); /* Responsive padding */
     text-align: center;
-    border-radius: 10px;
+    border-radius: clamp(5px, 0.8vmin, 10px); /* Responsive radius */
     font-weight: 700;
-    font-size: 14px;
+    font-size: clamp(10px, 1.8vmin, 14px); /* Responsive font size */
     box-shadow: 0 4px 15px rgba(255,107,53,0.4);
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 0.5vmin; /* Responsive margin */
+    white-space: nowrap; /* Added in previous attempt, keep if still there */
+    overflow: hidden; /* Added in previous attempt, keep if still there */
+    text-overflow: ellipsis; /* Added in previous attempt, keep if still there */
+    flex-shrink: 0; /* Added in previous attempt, keep if still there */
 }
 
 .category-emoji {
     width: 100%;
-    height: 240px;
+    /* height: 240px; Removed fixed height */
+    flex-grow: 1; /* Allow emoji area to take available space */
     border-radius: 12px;
     position: relative;
     overflow: hidden;
@@ -313,8 +318,9 @@ body {
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, #ffffff, #f8f9fa);
-    font-size: 80px;
+    font-size: clamp(5vmin, 10vh, 12vmin); /* Responsive emoji size */
     animation: categoryFloat 3s ease-in-out infinite;
+    min-height: 50px; /* Add a minimum height to prevent collapse */
 }
 
 /* Category-specific emoji animations */
@@ -360,21 +366,24 @@ body {
 
 .point-card {
     background: linear-gradient(135deg, #ecf0f1, #bdc3c7);
-    border: 3px solid #95a5a6;
-    padding: 15px 10px;
+    border: clamp(2px, 0.4vmin, 3px) solid #95a5a6; /* Responsive border */
+    padding: clamp(5px, 1vmin, 10px); /* Responsive padding */
     text-align: center;
-    border-radius: 8px;
+    border-radius: clamp(4px, 0.8vmin, 8px); /* Responsive radius */
     cursor: pointer;
-    font-size: 20px;
+    font-size: clamp(12px, 2.5vmin, 20px); /* Responsive font size */
     font-weight: 900;
     color: #e74c3c;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
-    height: 75px;
+    /* height: 75px; Removed fixed height */
+    flex: 1; /* Allow card to take available space in column */
     display: flex;
     align-items: center;
     justify-content: center;
+    min-height: clamp(30px, 5vh, 50px); /* Minimum height to prevent collapse */
+    line-height: 1.1;
 }
 
 .point-card:hover {
@@ -418,20 +427,24 @@ body {
 }
 
 .team-name {
-    font-size: 20px;
-    margin-bottom: 15px;
+    font-size: clamp(14px, 2.2vmin, 20px); /* Responsive font size */
+    margin-bottom: 1vmin; /* Responsive margin */
     font-weight: 600;
+    white-space: nowrap; /* Prevent wrapping during resize */
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .team-score {
     background: linear-gradient(135deg, #e74c3c, #c0392b);
     color: white;
-    padding: 15px 30px;
-    border-radius: 25px;
-    font-size: 24px;
+    padding: clamp(8px, 1.5vmin, 15px) clamp(15px, 2.5vmin, 30px); /* Responsive padding */
+    border-radius: clamp(15px, 2.5vmin, 25px); /* Responsive radius */
+    font-size: clamp(16px, 3vmin, 24px); /* Responsive font size */
     font-weight: 900;
     box-shadow: 0 4px 15px rgba(231,76,60,0.4);
     transition: all 0.3s ease;
+    display: inline-block; /* To make padding and border-radius work as expected */
 }
 
 .team.active .team-score {
